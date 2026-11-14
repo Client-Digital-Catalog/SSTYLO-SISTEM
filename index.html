@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>SSTYLO · Panel</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -14,6 +14,7 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
+html,body,button,input,a,.btn,.nav,.chips button,.step button{touch-action:manipulation}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 button,input{font:inherit;color:inherit}
 input{outline:none}
@@ -805,7 +806,7 @@ function cambiarCarrito(c,d){
 function quitarLinea(c){
   const el=document.querySelector(`[data-line="${CSS.escape(c)}"]`);
   const fin=()=>{ S.carrito=S.carrito.filter(l=>l.codigo!==c); renderCar(); renderPedTabla(); contarCarrito(); };
-  if(el){ el.classList.add("out"); setTimeout(fin,260); } else fin();
+  if(el){ el.classList.add("out"); setTimeout(fin,160); } else fin();
 }
 function generarPDF(p){
   const {jsPDF}=window.jspdf; const doc=new jsPDF({unit:"mm",format:"a4"}); const W=210; let y=20;
@@ -863,7 +864,7 @@ document.addEventListener("click",e=>{
   else if(d.pg!==undefined){ S.pag=Math.max(1,S.pag+ +d.pg); renderCatTabla(); }
   else if(d.vok!==undefined) submitVerify();
   else if(d.vcancel!==undefined) closeVerify();
-  else if(d.quit!==undefined){ const n=+d.quit; const card=t.closest(".pcard"); if(card)card.classList.add("out"); setTimeout(()=>{ LS.set("pedidos",pedidos().filter(p=>p.numero!==n)); toast("Pedido eliminado","warn"); ir("hist"); },260); }
+  else if(d.quit!==undefined){ const n=+d.quit; const card=t.closest(".pcard"); if(card)card.classList.add("out"); setTimeout(()=>{ LS.set("pedidos",pedidos().filter(p=>p.numero!==n)); toast("Pedido eliminado","warn"); ir("hist"); },160); }
   else if(d.nav!==undefined) ir(d.nav);
 });
 document.addEventListener("input",e=>{
